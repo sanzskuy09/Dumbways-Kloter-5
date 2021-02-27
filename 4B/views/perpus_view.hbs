@@ -14,23 +14,32 @@
     <div class="container mt-5">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah
             Buku</button>
-        {{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah
-            Kategori</button> --}}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#KategoriModal">Tambah
+            Kategori</button>
     </div>
-    <div class="container mt-5 d-flex ">
+    <div class="container mt-5 d-flex">
         <div class="d-flex flex-row flex-wrap justify-content-center align-items-start">
             {{#each results}}
             <div class="d-flex mt-3 mr-4">
                 <div class="card" style="width: 18rem; max-height: 450px">
-                    <img class="card-img-top" src="..." alt="Card image cap" width="100%" height="200px"
-                        style="background: red;">
+                    <img class="card-img-top" src="..." alt="IMAGE" width="100%" height="200px"
+                        style="background: rgb(105, 212, 226);">
                     <div class="card-body">
                         <h5 class="card-title">{{ name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ nama }}</h6>
                         <p class="card-text">{{ deskripsi }}</p>
+                        <h6 class="card-subtitle mb-2 text-muted"> Stock : {{ stock }}</h6>
                         <div class="row">
                             <a href="#" class="btn btn-primary col-sm mr-1">Pinjam</a>
-                            <a href="#" class="btn btn-primary col-sm mr-1">Pinjam</a>
+                            <a href="#" class="btn btn-warning col-sm mr-1">Kembalikan</a>
+                        </div>
+                        <div class="row mt-2">
+                            <a href="javascript:void(0);" class="btn btn-info col-sm mr-1 edit" data-id="{{ id }}"
+                                data-name="{{ name }}, data-stock=" {{ stock }},
+                                data-image="{{ image }}, data-deskripsi=" {{ deskripsi }},
+                                data-category_id="{{ nama }}">Edit</a>
+                            <a href="javascript:void(0);" class="btn btn-danger col-sm mr-1 delete"
+                                data-id="{{id}}">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +56,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Buku</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -71,8 +80,8 @@
                                 <textarea class="form-control" name="book_deskripsi"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="book_kategori" class="col-form-label">Kategori:</label>
-                                <select id="kategori" name="book_kategori" class="form-control" required>
+                                <label for="book_category_id" class="col-form-label">Kategori:</label>
+                                <select id="category_id" name="book_category_id" class="form-control" required>
                                     <option value="1">Novel</option>
                                     <option value="2">Biografi</option>
                                     <option value="3">Komik</option>
@@ -89,6 +98,111 @@
         </div>
     </form>
 
+    {{!-- modal insert kategori --}}
+    <form action="/save1" method="post">
+        <div class="modal fade" id="KategoriModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="nama" class="col-form-label">Nama Kategori:</label>
+                                <input type="text" class="form-control" name="nama" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambahkan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    {{!-- modal update --}}
+    <form action="/update" method="post">
+        <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="book_name" class="col-form-label">Nama Buku:</label>
+                                <input type="text" class="form-control name" name="book_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="book_stock" class="col-form-label">Stok:</label>
+                                <input type="number" name="book_stock" class="form-control stock" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="book_image" class="col-form-label">Gambar:</label>
+                                <input type="file" name="book_image" class="form-control image">
+                            </div>
+                            <div class="form-group">
+                                <label for="book_deskripsi" class="col-form-label">Deskripsi:</label>
+                                <textarea class="form-control deskripsi" name="book_deskripsi"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="book_category_id" class="col-form-label">Kategori:</label>
+                                <select id="category_id" name="book_category_id" class="form-control category_id"
+                                    required>
+                                    <option value="1">Novel</option>
+                                    <option value="2">Biografi</option>
+                                    <option value="3">Komik</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" class="id">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambahkan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    {{!-- modal delete --}}
+    <form id="add-row-form" action="/delete" method="post">
+        <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myModalLabel">Delete Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <strong>Anda yakin mau menghapus data ini?</strong>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" class="form-control id2" required>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -99,6 +213,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            //tampilkan data ke modal untuk edit
+            $('#mytable').on('click', '.edit', function () {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                var stock = $(this).data('stock');
+                var image = $(this).data('image');
+                var deskripsi = $(this).data('deskripsi');
+                var category_id = $(this).data('category_id');
+                $('#EditModal').modal('show');
+                $('.name').val(name);
+                $('.stock').val(stock);
+                $('.image').val(image);
+                $('.deskripsi').val(deskripsi);
+                $('.category_id').val(category_id);
+                $('.id').val(id);
+            });
+
+            //tampilkan modal hapus record
+            $('#mytable').on('click', '.delete', function () {
+                var id = $(this).data('id');
+                $('#DeleteModal').modal('show');
+                $('.id2').val(id);
+            });
+    </script>
 </body>
 
 </html>

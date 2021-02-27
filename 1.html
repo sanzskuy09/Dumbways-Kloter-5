@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soal 1</title>
+  </head>
+  <body>
+    <h1>Cek angka palindrom</h1>
+
+    <input type="text" id="angka" placeholder="Input Angka" />
+    <button id="btn">Submit</button>
+
+    <p id="result"></p>
+
+    <script>
+      document.getElementById("btn").addEventListener("click", function () {
+        let angka = document.getElementById("angka").value;
+        let a = angka.toString();
+        reverse(a);
+        document.getElementById("result").innerHTML =
+          a === reverse(a) ? "Betul" : "Salah";
+      });
+
+      function reverse(params) {
+        let x = params.length;
+        let y = "";
+        for (let x = params.length; x > 0; x--) {
+          y += params[x - 1];
+        }
+        console.log(y);
+        return y;
+      }
+    </script>
+  </body>
+</html>

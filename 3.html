@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Soal 3</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        
+      function createPyramid(rows) {
+        let text = "DUMBWAYSIDUJIAN";
+        let res = text.split("");
+        let count = 0;
+        for (let i = 0; i < rows; i++) {
+          var output = "";
+          for (let j = 0; j < rows - i; j++) output += " ";
+          for (let k = 0; k <= i; k++) {
+            output += res[count] + " ";
+            count++;
+          }
+          console.log(output);
+        }
+      }
+      createPyramid(5);
+      
     </script>
-</body>
+  </body>
 </html>
